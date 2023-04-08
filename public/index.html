@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+  
+    <title>-Weather App</title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+    <script src="https://kit.fontawesome.com/fbcfe1e8ef.js" crossorigin="anonymous"></script>
+    <link href="./plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+    <link href="./plugins/toastr/css/toastr.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+  
+    <div id="main-wrapper">
+
+        <div class="header">    
+            <div class="header-content clearfix">
+               
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+                <div class="header-left">
+                    <div class="input-group icons">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
+                        </div>
+                        <input type="search" class="form-control" placeholder="Search Location" aria-label="Search Location" id="locsearch"><i class="far fa-times-circle" id="sclose"></i>
+                        <button id="searchbutton" type="button" class="btn mb-1 btn-primary">Search</button>
+                    </div>
+                </div>
+                <div class="header-right">
+                    
+                    <ul class="clearfix" id="pop">
+              
+                       <li><h1 id="lochead"><small>Weather App</small></h1></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+        <div class="modal fade" id="exampleModalCenter" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body"><div class="form-group">
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="whet" value="clear">Clear</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="whet" value="snow">Snow</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="whet" value="rain">Rain</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="whet" value="cloudy">cloudy</label>
+                        </div>
+                       
+                    </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" id="savenotif" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="modalGrid" style="display: none; padding-right: 17px;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-titler">Settings</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="default-tab">
+                            <ul class="nav nav-tabs mb-3" role="tablist">
+                                
+                                <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#profile">Profile</a>
+                                </li>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#alerts">Alerts</a>
+                                </li>
+                               
+                            </ul>
+                            <div class="tab-content">
+                                
+                                <div class="tab-pane fade active show" id="profile">
+                                    <div class="p-t-15">
+                                        <input type="text" class="form-control" id="val-username" name="val-username" placeholder="Enter a username..">
+                                        <input type="text" class="form-control" id="val-email" name="val-email" placeholder="Your valid email..">
+                                        <input type="text" class="form-control" id="val-password" name="val-password" placeholder="Choose a safe one..">
+                                        <input type="text" class="form-control" id="val-phone" name="val-phoneus" placeholder="##########">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" id="profupdate" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="alerts">
+                                    <div class="p-t-15">
+                                        <table class="table table-hover " id="#F">
+                                        <tbody id="tbody">
+                                                  
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" id="alertupdate" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">           
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    
+                    <li >
+                        <a  href="javascript:void()" aria-expanded="false" id="filters" data-loc="">
+                            <i class="far fa-dot-circle"></i><span id="modaltog" data-target="#exampleModalCenter" class="nav-text">Alert</span>
+                        </a>
+                       
+                        
+                    </li>
+                    <li>
+                        <a  href="javascript:void()" aria-expanded="false">
+                            <i class="fas fa-asterisk"></i><span class="nav-text">Preference Edit</span>
+                        </a>
+                        <ul id="preferences" aria-expanded="false">
+                     
+                                
+                        
+                            
+                        </ul>
+                    </li>
+                    <li >
+                        <a  href="login.html" aria-expanded="false"  data-loc="">
+                            <i class="fas fa-sign-out-alt"></i><span id=""  class="nav-text">logout</span>
+                        </a>
+                       
+                        
+                    </li>
+
+                    <li >
+                        <a  href="javascript:void()" aria-expanded="false" id="profile" data-loc="">
+                            <i class="fas fa-user"></i><span id="modalto" data-toggle="modal" data-target="#modalGrid" class="nav-text">Profile & Edit</span>
+                        </a>
+                        
+                       
+                        
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <section class="swiper mySwiper">
+
+                <div class="swiper-wrapper">
+                    
+        
+                </div>
+            </section>
+    </div>
+   
+</div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+<script>
+
+</script>
+<script>
+  $(document).ready(function(){
+
+   
+   
+    $("#locsearch").keydown(function (event) { 
+     if (event.which == 13) { 
+         load() 
+     } 
+    });
+
+
+    $("#searchbutton").click(function(){
+        load();
+    })
+function load(){
+        var loc=$("#locsearch").val()
+
+
+    
+
+
+
+const options = {method: 'GET'};
+
+fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${loc}?unitGroup=us&key=R86J89WUP99QYVYUYRXTEQNV6&contentType=json`, options)
+.then(response => response.json())
+.then(function(response){
+
+    $(".swiper-wrapper").html('')
+    $("#lochead").html(` <i id="bookmark"  class="far fa-bookmark"></i>🔻 ${response.resolvedAddress}`)
+    $("#filters").attr("data-loc",` ${response.resolvedAddress}`)
+    console.log(response)
+for(let [index, i] of  response.days.entries()){
+
+
+var tm=i.tempmax;
+var Celsius = Math.round((tm-32) * 5 / 9);
+var image=''
+switch(i.icon){
+    case 'clear-day': image='clear.png'
+    break;
+    case 'rain': image='rain.png'
+    break;
+    case 'partly-cloudy-day': image='cloud.png'
+    break;
+    case 'snow': image='snow.png'
+    break;
+    case 'cloudy': image='cloudy.png'
+    break;
+    default:image='404.png'
+}
+if(index==0){
+
+$(".swiper-wrapper").append(`
+
+<div class="weathercardo  swiper-slide"  id="zero" data-cardw="${i.icon}">
+    <div id ="viewdet${index}" class="viewdet">
+        
+        <p>Sunrise : ${i.sunrise} </p>
+        <p>Sunset  : ${i.sunset}</p>
+        <p>Temp-Max : ${i.tempmax}</p>
+        <p>Temp-Min : ${i.tempmin}</p>
+        <p>Wind-speed: ${i.windspeed}</p>
+        <p>UV-index : ${i.uvindex}</p>
+        <button type="button" id="closeview" onclick="vi(${index})" class="btn mb-1 btn-rounded btn-secondary">close</button>
+
+    </div>  
+    <div class="weathercard__image" onclick="hel(${index})" id="weathercard__image${index}">
+        <img src="../images/${image}" alt="card image">
+    </div>
+
+    <div class="weathercard__content0" id="weathercard__content${index}">
+        <span class="weathercard__name" id="celcius">${Celsius}<sup>c</sup></span>
+      <span class="weathercard__title" >${i.datetime}</span>
+      <span class="weathercard__name" id ="title">${i.conditions}</span>
+      <div id="grp">
+        <div>${i.tempmax}</div>
+        <div>${i.humidity}</div>
+        <div>${i.winddir}</div>
+       
+       </div>
+       <div id="grp">
+        <div>Temp-max</div>
+        <div>humidity</div>
+        <div>Wind</div>
+       
+       </div>
+    
+    </div>
+  </div>`)
+}
+
+else{
+$(".swiper-wrapper").append(`
+
+<div class="weathercard swiper-slide" id="in${index}" data-cardw="${i.icon}" >
+    <div id ="viewdet${index}" class="viewdet">
+        
+        <p>Sunrise : ${i.sunrise} </p>
+        <p>Sunset  : ${i.sunset}</p>
+        <p>Temp-Max : ${i.tempmax}</p>
+        <p>Temp-Min : ${i.tempmin}</p>
+        <p>Wind-speed: ${i.windspeed}</p></p>
+        <p>UV-index : ${i.uvindex}</p>
+                    <button type="button" id="closeview" onclick="vi(${index})" class="btn mb-1 btn-rounded btn-secondary">close</button>
+      </div>              
+                    
+
+    <div class="weathercard__image" id="weathercard__image${index}">
+        <img src="/images/${image}" alt="card image">
+    </div>
+
+    <div class="weathercard__content" id="weathercard__content${index}">
+        <span class="weathercard__name" id="celcius">${Celsius}<sup>c</sup></span>
+      <span class="weathercard__title">${i.datetime}</span>
+      <span class="weathercard__name">${i.conditions}</span>
+      
+       
+      
+       <button id="viewq" onclick="hel(${index})" class="weathercard__btn">View More</button>
+    </div>
+  </div>`)
+}
+}
+
+var swiper = new Swiper(".mySwiper", {
+  effect: "coverflow",
+  grabCursor: true,
+  centeredSlides: true,
+  slidesPerView: "auto",
+  coverflowEffect: {
+    rotate: 0,
+    stretch: 0,
+    depth: 300,
+    modifier: 1,
+    slideShadows: false,
+  },
+  pagination: {
+    el: ".swiper-pagination",
+  },
+});
+console.log(response.days)
+
+var bg=$(`#zero`).data("cardw")
+
+  switch(bg){
+    case 'clear-day': $("body").css({ "background-image": `url(images/bg-clear.jpg)`})
+    break;
+    case 'rain': $("body").css({ "background-image": `url(images/bg-rain.jpg)`})
+    break;
+    case 'partly-cloudy-day':  $("body").css({ "background-image": `url(images/bg-cloud.jpg)`})
+    break;
+    case 'snow': $("body").css({ "background-image": `url(images/bg-snow.jpg)`})
+    break;
+    case 'cloudy': $("body").css({ "background-image": `url(images/bg-cloudy.jpg)`})
+    break;
+
+}
+
+
+swiper.on('slideChange', function () {
+  console.log(swiper.activeIndex);
+  console.log($(`#in${swiper.activeIndex}`).data("cardw"))
+  if(swiper.activeIndex==0){
+    var bg=$(`#zero`).data("cardw")
+  }
+  else{
+
+      var bg=$(`#in${swiper.activeIndex}`).data("cardw")
+  }
+  switch(bg){
+    case 'clear-day': $("body").css({ "background-image": `url(images/bg-clear.jpg)`})
+    break;
+    case 'rain': $("body").css({ "background-image": `url(images/bg-rain.jpg)`})
+    break;
+    case 'partly-cloudy-day':  $("body").css({ "background-image": `url(images/bg-cloud.jpg)`})
+    break;
+    case 'snow': $("body").css({ "background-image": `url(images/bg-snow.jpg)`})
+    break;
+    case 'cloudy': $("body").css({ "background-image": `url(images/bg-cloudy.jpg)`})
+    break;
+
+}
+
+});
+
+})
+
+
+.catch(function(err){
+if(err){
+    swal("INVALID LOCATION","Please Enter Valid location","error")
+
+}}
+  
+  );
+
+ 
+
+
+
+
+}
+
+
+
+  })
+
+
+</script>
+<script src="index.js"></script>
+
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+    <script src="./plugins/sweetalert/js/sweetalert.min.js"></script>
+    <script src="./plugins/sweetalert/js/sweetalert.init.js"></script>
+
+    <script src="./plugins/toastr/js/toastr.min.js"></script>
+    <script src="./plugins/toastr/js/toastr.init.js"></script>
+    <!-- Circle progress -->
+    <script src="./plugins/circle-progress/circle-progress.min.js"></script>
+  
+
+
+
+
+
+</body>
+
+</html>
