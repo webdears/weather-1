@@ -43,7 +43,7 @@ function user_notif(){
   let uid=localStorage.getItem("weather")
 
 $.ajax({
-    url:"http://localhost:1123/notif",
+    url:"https://weather-1.vercel.app/notif",
     type:"post",
     dataType: "json",
     data: { Uid:uid
@@ -83,7 +83,7 @@ load_alerts()
 function load_profile(){
   let uid=localStorage.getItem("weather");
   $.ajax({
-    url:"http://localhost:1123/loadprof",
+    url:"https://weather-1.vercel.app/loadprof",
     type:"post",
     dataType: "json",
     data: { Uid:uid
@@ -122,7 +122,7 @@ $(document).on("click","#profupdate",function(){
           let pass=$("#val-password").val()
 
           $.ajax({
-            url:"http://localhost:1123/updateprof",
+            url:"https://weather-1.vercel.app/updateprof",
             type:"post",
             dataType: "json",
             data: { Uid:uid,Username:username,Pass:pass,Phone:phone,Email:mail
@@ -151,7 +151,7 @@ $(document).on("click","#profupdate",function(){
 function load_alerts(){
   let uid=localStorage.getItem("weather");
   $.ajax({
-    url:"http://localhost:1123/loadalerts",
+    url:"https://weather-1.vercel.app/loadalerts",
     type:"post",
     dataType: "json",
     data: { Uid:uid
@@ -241,7 +241,7 @@ if(arr.includes("cloudy")){
 let uid=localStorage.getItem("weather")
 let loc=$("#locsearch").val();
 $.ajax({
-    url:"http://localhost:1123/filter",
+    url:"https://weather-1.vercel.app/filter",
     type:"post",
     dataType: "json",
     data: { Uid:uid,Clear:clear,Rain:rain,Snow:snow,Cloudy:cloudy,Loc:loc
@@ -264,7 +264,7 @@ function preference(){
   $("#preferences").html('')
   let userp=localStorage.getItem("weather");
   $.ajax({
-    url:"http://localhost:1123/loadpreference",
+    url:"https://weather-1.vercel.app/loadpreference",
     type:"post",
     dataType: "json",
     data: { Uid:userp
@@ -590,7 +590,7 @@ $(document).on("click","#bookmark",function(){
 
   
     $.ajax({
-      url:"http://localhost:1123/bookmark",
+      url:"https://weather-1.vercel.app/bookmark",
       type:"post",
       dataType: "json",
       data: { Loc:loc,User:user
@@ -624,7 +624,7 @@ function prfe(i){
 
        
         $.ajax({
-          url:"http://localhost:1123/delbookmark",
+          url:"https://weather-1.vercel.app/delbookmark",
           type:"post",
           dataType: "json",
           data: { Loc:i,User:user
@@ -656,7 +656,7 @@ function delalert(i){
 
  
   $.ajax({
-    url:"http://localhost:1123/delalert",
+    url:"https://weather-1.vercel.app/delalert",
     type:"post",
     dataType: "json",
     data: { Id:i,Uid:user
