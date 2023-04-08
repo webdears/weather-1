@@ -17,7 +17,7 @@ $("#signup").on("click",function(){
        
                 if(user!=''  && pass!=''){
                     $.ajax({
-                                url:"http://localhost:1123/signup",
+                                url:"https://weather-1.vercel.app/signup",
                                 type:"post",
                                 dataType: "json",
                                 data: { User:user,Pass:pass
