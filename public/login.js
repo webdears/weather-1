@@ -91,7 +91,7 @@ $("#save").on("click",function(){
     }
     if(condition){
         $.ajax({
-            url:"http://localhost:1123/mail",
+            url:"https://weather-1.vercel.app/mail",
             type:"post",
             dataType: "json",
             data: { tomail:mail,phone_no:phone
@@ -128,7 +128,7 @@ $("#submit").on("click",function(){
     if(condition){
     
   
-        $.ajax(`http://localhost:1123/validateotp?mail=${mail}&otpval=${otp} `, {
+        $.ajax(`https://weather-1.vercel.app/validateotp?mail=${mail}&otpval=${otp} `, {
             type: 'GET',
             dataType: 'json',
          
@@ -146,7 +146,7 @@ $("#submit").on("click",function(){
                     let phone=$("#val-phone").val()
                     let mail=$("#val-email").val()
                             $.ajax({
-                                url:"http://localhost:1123/insertdata",
+                                url:"https://weather-1.vercel.app/insertdata",
                                 type:"post",
                                 dataType: "json",
                                 data: { Username:username,Pass:pass,Phone:phone,Email:mail
@@ -200,7 +200,7 @@ $("#sendotp").on("click",function(){
    let mail= $("#forgotemail").val();
    if(mail != ""){
     $.ajax({
-        url:"http://localhost:1123/mail",
+        url:"https://weather-1.vercel.app/mail",
         type:"post",
         dataType: "json",
         data: { tomail:mail
@@ -229,7 +229,7 @@ $("#sendqr").on("click",function(){
     let mail= $("#forgotemail").val();
     let otp= $("#forgototp").val();
     
-    $.ajax(`http://localhost:1123/validateotp?mail=${mail}&otpval=${otp} `, {
+    $.ajax(`https://weather-1.vercel.app/validateotp?mail=${mail}&otpval=${otp} `, {
             type: 'GET',
             dataType: 'json',
          
@@ -241,7 +241,7 @@ $("#sendqr").on("click",function(){
                     // alert(0000)
             
                             $.ajax({
-                                url:"http://localhost:1123/qr",
+                                url:"https://weather-1.vercel.app/qr",
                                 type:"get",
                                 dataType: "json",
                                 data: { Email:mail
